@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
-import Title from './Title';
 import PhotoWall from './PhotoWall';
 import AddPhoto from './AddPhoto';
 import {Route, Link} from 'react-router-dom';
 import Single from './Single';
 
 class Main extends Component {
-    constructor() {
-        super();
+    
+    state = { loading: true }
+
+    componentDidMount() {
+       this.props.startLoadingPosts().then(() => {
+           this.setState({loading: false});
+       }); 
+       this.props.startLoadingComments();
     }
 
     render() {
         console.log(this.props);
         return (
             <div>
-                <h1>
+                <h1 className='font-face'>
                     <Link to="/"> PhotoWall </Link>
                 </h1>
                 <Route exact path='/' render={() => (
@@ -26,7 +31,7 @@ class Main extends Component {
                     <AddPhoto {...this.props} onHistory={history}/>
                 )}/>
                 <Route path='/single/:id' render={(params) => (
-                    <Single {...this.props} {...params}/>
+                    <Single loading={this.state.loading} {...this.props} {...params}/>
                 )}/>
             </div> 
         )};

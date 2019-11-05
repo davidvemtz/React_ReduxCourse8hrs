@@ -15,16 +15,16 @@ class AddPhoto extends Component {
          imageLink: imageLink
       }
       if (imageLink && description) {
-         this.props.addPost(post);
+         this.props.startAddingPost(post);
          this.props.onHistory.push('/');
       }
    }
 
    render() {
       return (
-         <div>
+         <div className='add-post'>
             <div className="form">
-               <form onSubmit={this.handleSubmit}>
+               <form className="add-form" onSubmit={this.handleSubmit}>
                   <input type="type" placeholder="Link" name="link"/>
                   <input type="type" placeholder="Description" name="description"/>
                   <button> Post </button>
